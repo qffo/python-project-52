@@ -10,6 +10,7 @@ packages = [{include = "task_manager"}]
 python = "^3.11"
 django = "^5.1.3"
 python-dotenv = "^1.0.1"
+dj-database-url = "^2.3.0"
 
 
 [tool.poetry.group.dev.dependencies]
