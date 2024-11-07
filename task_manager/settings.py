@@ -33,7 +33,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'webserver',
-    'python-project-52-by4e.onrender.com/',
+    'python-project-52-by4e.onrender.com',
     '127.0.0.1'
 ]
 
