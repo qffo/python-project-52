@@ -34,6 +34,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     'webserver',
     'python-project-52-by4e.onrender.com',
+    # 'localhost',
     '127.0.0.1'
 ]
 
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'task_manager',
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
