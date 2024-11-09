@@ -136,6 +136,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+BOOTSTRAP5 = {
+    # The complete URL to the Bootstrap CSS theme file (None means no theme).
+    "theme_url": 'https://getbootstrap.com/docs/5.1/examples/cover/cover.css',
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
