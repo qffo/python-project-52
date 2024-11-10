@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
@@ -6,14 +6,11 @@ from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.views import LoginView
 
 
 def index(request):
     return render(request, 'index.html')
-
-
-def user_list(request):
-    return render(request, 'users.html')
 
 
 class UserCreateView(CreateView):
@@ -39,3 +36,7 @@ def user_delete(request, pk):
 def user_list(request):
     users = User.objects.all()
     return render(request, 'users.html', {'users': users})
+
+
+class CustomLoginView(LoginView):
+    template_name = 'login.html'
