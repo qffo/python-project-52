@@ -1,4 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, UpdateView
+from .forms import CustomUserCreationForm, CustomUserChangeForm
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 def index(request):
@@ -7,3 +14,28 @@ def index(request):
 
 def user_list(request):
     return render(request, 'users.html')
+
+
+class UserCreateView(CreateView):
+    model = User
+    form_class = CustomUserCreationForm
+    template_name = 'users/create.html'
+    success_url = reverse_lazy('user_list')
+
+
+class UserUpdateView(UpdateView):
+    model = User
+    form_class = CustomUserChangeForm
+    template_name = 'users/update.html'
+    success_url = reverse_lazy('user_list')
+
+
+def user_delete(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    user.delete()
+    return HttpResponseRedirect(reverse('user_list'))
+
+
+def user_list(request):
+    users = User.objects.all()
+    return render(request, 'users.html', {'users': users})
