@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'webserver',
@@ -140,6 +140,9 @@ BOOTSTRAP5 = {
     # The complete URL to the Bootstrap CSS theme file (None means no theme).
     "theme_url": 'https://getbootstrap.com/docs/5.1/examples/cover/cover.css',
 }
+
+LOGIN_REDIRECT_URL = '/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
