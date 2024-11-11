@@ -14,9 +14,7 @@
       <nav class="nav nav-masthead justify-content-center float-md-end">
 
         {% if user.is_authenticated %}
-        <a class="nav-link" href="{% url 'user_update' user.pk %}">Привет: {{ user.first_name }}</a>
-        {% else %}
-        <a class="nav-link" href="{% url 'login' %}">Вы не авторизованы</a>
+        <a class="nav-link" href="{% url 'user_update' user.pk %}" style="text-decoration: none; color: #7bd5ff;">Привет: {{ user.username }}</a>
         {% endif %}
 
         <a class="nav-link" aria-current="page" href="{% url 'user_list' %}">Пользователи</a>
