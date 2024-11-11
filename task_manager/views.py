@@ -17,7 +17,7 @@ class UserCreateView(CreateView):
     model = User
     form_class = CustomUserCreationForm
     template_name = 'users/create.html'
-    success_url = reverse_lazy('user_list')
+    success_url = reverse_lazy('login')
 
 
 class UserUpdateView(UpdateView):
@@ -40,3 +40,4 @@ def user_list(request):
 
 class CustomLoginView(LoginView):
     template_name = 'login.html'
+    success_url = reverse_lazy('index')
