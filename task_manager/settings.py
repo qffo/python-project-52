@@ -142,6 +142,7 @@ BOOTSTRAP5 = {
 }
 
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 
 # Default primary key field type
