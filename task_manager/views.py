@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from pyexpat.errors import messages
+from django.contrib import messages
+from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import Http404, HttpResponseForbidden, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.views import LoginView
 
@@ -26,11 +28,31 @@ class UserUpdateView(UpdateView):
     template_name = 'users/update.html'
     success_url = reverse_lazy('user_list')
 
+    def get_object(self, queryset=None):
+        user = super().get_object(queryset)
+        if user != self.request.user:
+            messages.error(
+                self.request, "У вас нет прав для изменения другого пользователя.")
+            raise Http404("Вы не можете редактировать чужие данные.")
+        return user
+
+    def get(self, request, *args, **kwargs):
+        try:
+            user = self.get_object()
+        except Http404:
+            return redirect('user_list')
+        return super().get(request, *args, **kwargs)
+
 
 def user_delete(request, pk):
     user = get_object_or_404(User, pk=pk)
+    if user != request.user:
+        messages.error(
+            request, "У вас нет прав для изменения другого пользователя.")
+        return redirect('user_list')
+
     user.delete()
-    return HttpResponseRedirect(reverse('user_list'))
+    return redirect('user_list')
 
 
 def user_list(request):
