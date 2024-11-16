@@ -8,7 +8,7 @@ from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponseForbidden, HttpResponseRedirect
 from django.urls import reverse
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 
 
 def index(request):
@@ -63,3 +63,15 @@ def user_list(request):
 class CustomLoginView(LoginView):
     template_name = 'login.html'
     success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        messages.success(self.request, "Вы залогинены")
+        return super().form_valid(form)
+
+
+class CustomLogoutView(LogoutView):
+    next_page = reverse_lazy('index')
+
+    def dispatch(self, request, *args, **kwargs):
+        messages.success(request, "Вы разлогинены")
+        return super().dispatch(request, *args, **kwargs)
