@@ -28,15 +28,10 @@
     </div>
   </header>
 
-  {% if messages %}
-  <div class="alert alert-danger">
-    {% for message in messages %}
-      <p>{{ message }}</p>
-    {% endfor %}
-  </div>
-  {% endif %}
+  {% bootstrap_messages %}
 
   {% block content %}{% endblock %}
+  
   <footer class="mt-auto text-white-50">
     <p>by <a href="https://github.com/qffo" target="_blank"  class="text-white">Viktor Romanov</a></p>
   </footer>
