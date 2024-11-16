@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from task_manager import views
 from django.contrib.auth.views import LoginView, LogoutView
-from .views import UserCreateView, UserUpdateView, user_delete, CustomLoginView
+from .views import CustomLogoutView, UserCreateView, UserUpdateView, user_delete, CustomLoginView
 
 
 urlpatterns = [
@@ -15,5 +15,5 @@ urlpatterns = [
     path('users/<int:pk>/update/', UserUpdateView.as_view(), name='user_update'),
     path('users/<int:pk>/delete/', user_delete, name='user_delete'),
     path('login/', CustomLoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', CustomLogoutView.as_view(), name='logout'),
 ]
