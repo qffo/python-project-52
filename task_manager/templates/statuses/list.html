@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Пользователи</h2>
+  <h2>Статусы</h2>
+  <a class="btn btn-primary mb-3" href="/statuses/">Создать статус</a>
   <table class="table table-bordered table-hover table-dark text-nowrap" data-test="urls">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Имя пользователя</th>
-        <th>Полное имя</th>
+        <th>Имя</th>
         <th>Дата создания</th>
         <th></th>
       </tr>
@@ -17,7 +17,6 @@
         <tr>
           <td>{{ user.id }}</td>
           <td>{{ user.username }}</td>
-          <td>{{ user.first_name }} {{ user.last_name }}</td>
           <td>{{ user.date_joined|date:"d.m.Y H:i" }}</td>
           <td>
             <a href="{% url 'user_update' user.pk %}" style="text-decoration: none; color: #7bd5ff;">Изменить</a>
