@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from task_manager import views
 from django.contrib.auth.views import LoginView, LogoutView
 from .views import CustomLogoutView, UserCreateView, UserUpdateView, user_delete, CustomLoginView
@@ -16,4 +16,5 @@ urlpatterns = [
     path('users/<int:pk>/delete/', user_delete, name='user_delete'),
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', CustomLogoutView.as_view(), name='logout'),
+    path('statuses/', include('task_manager.statuses.urls')),
 ]
