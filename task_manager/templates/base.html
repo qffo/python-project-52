@@ -11,7 +11,7 @@
 
       <nav class="nav nav-masthead justify-content-center float-md-end">
         {% if user.is_authenticated %}
-        <a class="nav-link" href="{% url 'user_update' user.pk %}" style="text-decoration: none; color: #7bd5ff;">Привет: {{ user.username }}</a>
+        <a class="nav-link" href="{% url 'user_update' user.pk %}" style="text-decoration: none; color: #7bd5ff;">👤 {{ user.username }}</a>
         <a class="nav-link" href="{% url 'status_list' %}">Статусы</a>
         {% endif %}
         <a class="nav-link" aria-current="page" href="{% url 'user_list' %}">Пользователи</a>

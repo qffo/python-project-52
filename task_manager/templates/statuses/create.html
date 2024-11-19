@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать статус</title>
+</head>
+<body>
+    <h1 class="my-4">Создать статус</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-primary btn-secondary border-white bg-white" type="submit" value="Создать">
+    </form>
+</body>
+</html>
+
+{% endblock %}

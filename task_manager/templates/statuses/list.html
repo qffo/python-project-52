@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Статусы</h2>
-  <a class="btn btn-primary mb-3" href="/statuses/">Создать статус</a>
+  <h2 class="my-4">Статусы</h2>
+
+  <p class="lead">
+    {% if user.is_authenticated %}
+    <a href="{% url 'status_create' %}" class="btn btn-primary btn-secondary border-white bg-white">Создать статус</a>
+    {% endif %}
+  </p>
+  
   <table class="table table-bordered table-hover table-dark text-nowrap" data-test="urls">
     <thead>
       <tr>
@@ -13,17 +19,17 @@
       </tr>
     </thead>
     <tbody>
-      {% for user in users %}
-        <tr>
-          <td>{{ user.id }}</td>
-          <td>{{ user.username }}</td>
-          <td>{{ user.date_joined|date:"d.m.Y H:i" }}</td>
-          <td>
-            <a href="{% url 'user_update' user.pk %}" style="text-decoration: none; color: #7bd5ff;">Изменить</a>
-            <a href="{% url 'user_delete' user.pk %}" style="text-decoration: none; color: #7bd5ff;">Удалить</a>
-          </td>
-        </tr>
-      {% endfor %}
+  {% for status in statuses %}
+    <tr>
+      <td>{{ status.id }}</td>
+      <td>{{ status.name }}</td>
+      <td>{{ status.created_at|date:"d.m.Y H:i" }}</td>
+      <td>
+        <a href="{% url 'status_update' status.pk %}" style="text-decoration: none; color: #7bd5ff;">Изменить</a>
+        <a href="{% url 'status_delete' status.pk %}" style="text-decoration: none; color: #7bd5ff;">Удалить</a>
+      </td>
+    </tr>
+  {% endfor %}
     </tbody>
   </table>
 {% endblock %}
