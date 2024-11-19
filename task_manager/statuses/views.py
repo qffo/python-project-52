@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -7,6 +8,10 @@ from task_manager.statuses.models import Status
 
 
 def index(request):
+    if not request.user.is_authenticated:
+        messages.warning(
+            request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        return redirect('login')  # Перенаправление на страницу входа
     statuses = Status.objects.all()
     return render(request, 'statuses/list.html', {'statuses': statuses})
 
@@ -22,6 +27,7 @@ class StatusCreateView(LoginRequiredMixin, View):
         form = StatusForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Статус успешно создан")
             return redirect('status_list')
         return render(request, 'statuses/create.html', {'form': form})
 
