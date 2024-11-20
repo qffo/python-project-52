@@ -38,7 +38,7 @@ class StatusUpdateView(LoginRequiredMixin, View):
     def get(self, request, pk):
         status = Status.objects.get(pk=pk)
         form = StatusForm(instance=status)
-        return render(request, 'statuses/create.html', {'form': form})
+        return render(request, 'statuses/status_update.html', {'form': form})
 
     def post(self, request, pk):
         status = Status.objects.get(pk=pk)
@@ -46,7 +46,7 @@ class StatusUpdateView(LoginRequiredMixin, View):
         if form.is_valid():
             form.save()
             return redirect('status_list')
-        return render(request, 'statuses/create.html', {'form': form})
+        return render(request, 'statuses/status_update.html', {'form': form})
 
 
 class StatusDeleteView(LoginRequiredMixin, View):

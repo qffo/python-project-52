@@ -1,13 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Удаление статуса
-    </title>
-</head>
 <body>
     <h1>Удаление статуса</h1>
     <p>Вы уверены, что хотите удалить {{ status.name }}?<p>
@@ -17,6 +10,5 @@
         <input class="btn btn-danger" type="submit" value="Да, удалить">
     </form>
 </body>
-</html>
 
 {% endblock %}
