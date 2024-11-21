@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'task_manager.statuses',
     'task_manager.tasks',
+    'task_manager.users',
 ]
 
 MIDDLEWARE = [
@@ -145,7 +146,7 @@ BOOTSTRAP5 = {
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
-
+AUTH_USER_MODEL = 'users.User'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
