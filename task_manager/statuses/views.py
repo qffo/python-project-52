@@ -2,9 +2,9 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from task_manager.statuses.forms import StatusForm
 from task_manager.statuses.models import Status
+from django.db.models import ProtectedError
 
 
 def index(request):
@@ -58,5 +58,10 @@ class StatusDeleteView(LoginRequiredMixin, View):
 
     def post(self, request, pk):
         status = Status.objects.get(pk=pk)
-        status.delete()
+        try:
+            status.delete()
+            messages.success(request, "Статус успешно удален.")
+        except ProtectedError:
+            messages.error(
+                request, "Невозможно удалить статус, потому что он используется")
         return redirect('status_list')
