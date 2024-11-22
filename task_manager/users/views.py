@@ -1,4 +1,5 @@
 from pyexpat.errors import messages
+from sqlite3 import IntegrityError
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from .models import User
@@ -7,6 +8,7 @@ from django.views.generic import CreateView, UpdateView
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.shortcuts import get_object_or_404
 from django.http import Http404
+from django.db.models import ProtectedError
 
 
 class UserCreateView(CreateView):
@@ -45,10 +47,16 @@ def user_delete(request, pk):
             request, "У вас нет прав для изменения другого пользователя.")
         return redirect('user_list')
 
-    user.delete()
+    try:
+        user.delete()
+        messages.success(request, "Пользователь успешно удален.")
+    except ProtectedError:
+        messages.error(
+            request, "Невозможно удалить пользователя, потому что он используется")
+
     return redirect('user_list')
 
 
 def user_list(request):
     users = User.objects.all()
-    return render(request, 'users.html', {'users': users})
+    return render(request, 'users/users_list.html', {'users': users})
