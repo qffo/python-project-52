@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse_lazy
 from task_manager.tasks.models import Task
 from pyexpat.errors import messages
 from django.contrib import messages
@@ -12,6 +13,11 @@ from task_manager.users.models import User
 
 def index(request):
     return render(request, 'tasks/tasks_list.html')
+
+
+def task_info(request, pk):
+    task = Task.objects.get(pk=pk)
+    return render(request, 'tasks/task_info.html', {'task': task})
 
 
 def tasks_list(request):

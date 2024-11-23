@@ -22,15 +22,15 @@
             {% for task in tasks %}
             <tr>
                 <td>{{ task.id }}</td>
-                <td><a href="{% url 'tasks_list' %}">{{ task.name }}</a></td>
+                <td><a href="{% url 'task_info' task.pk %}" style="text-decoration: none; color: #7bd5ff;">{{ task.name }}</a></td>
                 <td>{{ task.status }}</td>
                 <td>{{ task.author }}</td>
                 <td>{{ task.executor }}</td>
                 <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
                 <td>
-                    <a href="{% url 'tasks_list' %}">Изменить</a>
+                    <a href="{% url 'task_info' task.pk %}" style="text-decoration: none; color: #7bd5ff;">Изменить</a>
                     <br>
-                    <a href="{% url 'tasks_list' %}">Удалить</a>
+                    <a href="{% url 'task_info' task.pk %}" style="text-decoration: none; color: #7bd5ff;">Удалить</a>
                 </td>
             </tr>
             {% endfor %}
