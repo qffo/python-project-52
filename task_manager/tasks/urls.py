@@ -5,4 +5,5 @@ from task_manager.tasks import views
 urlpatterns = [
     path('', views.tasks_list, name='tasks_list'),
     path('create/', views.TaskCreateView.as_view(), name='task_create'),
+    path('<int:pk>/', views.task_info, name='task_info'),
 ]
