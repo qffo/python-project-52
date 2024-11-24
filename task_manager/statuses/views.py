@@ -17,8 +17,6 @@ def index(request):
 
 
 class StatusCreateView(LoginRequiredMixin, View):
-    login_url = '/login/'
-
     def get(self, request):
         form = StatusForm()
         return render(request, 'statuses/create.html', {'form': form})
@@ -33,8 +31,6 @@ class StatusCreateView(LoginRequiredMixin, View):
 
 
 class StatusUpdateView(LoginRequiredMixin, View):
-    login_url = '/login/'
-
     def get(self, request, pk):
         status = Status.objects.get(pk=pk)
         form = StatusForm(instance=status)

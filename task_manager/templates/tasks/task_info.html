@@ -4,10 +4,10 @@
 <h1 class="my-4">Просмотр задачи</h1>
 
 <div class="card">
-    <div class="card-header bg-secondary text-white">
+  <div class="card-header bg-secondary text-white">
       <h2>{{ task.name }}</h2>
-    </div>
-    <div class="card-body bg-light">
+  </div>
+  <div class="card-body bg-light">
       <p>{{ task.description }}</p>
       <hr>
       <div class="container">
@@ -26,8 +26,17 @@
         <div class="row p-1">
           <div class="col">Дата создания</div>
           <div class="col">{{ task.created_at|date:"d.m.Y H:i" }}</div>
+          <div class="row p-1">
+        </div>
+        <div class="row p-1">
+          <div class="col">
+            <a href="{% url 'task_update' task.pk %}">Изменить</a>
+            <br>
+            <a href="{% url 'task_delete' task.pk %}">Удалить</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 {% endblock %}
