@@ -10,16 +10,20 @@ from task_manager.statuses.models import Status
 from task_manager.users.models import User
 
 
-def index(request):
-    return render(request, 'tasks/tasks_list.html')
-
-
 def task_info(request, pk):
+    if not request.user.is_authenticated:
+        messages.warning(
+            request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        return redirect('login')
     task = Task.objects.get(pk=pk)
     return render(request, 'tasks/task_info.html', {'task': task})
 
 
 def tasks_list(request):
+    if not request.user.is_authenticated:
+        messages.warning(
+            request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        return redirect('login')
     tasks = Task.objects.all()
     return render(request, 'tasks/tasks_list.html', {'tasks': tasks})
 
@@ -63,6 +67,10 @@ class TaskCreateView(LoginRequiredMixin, View):
 
 
 def task_update(request, pk):
+    if not request.user.is_authenticated:
+        messages.warning(
+            request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        return redirect('login')
     task = Task.objects.get(pk=pk)
 
     if request.method == 'POST':

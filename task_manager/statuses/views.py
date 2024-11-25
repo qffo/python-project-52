@@ -11,7 +11,7 @@ def index(request):
     if not request.user.is_authenticated:
         messages.warning(
             request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return redirect('login')  # Перенаправление на страницу входа
+        return redirect('login')
     statuses = Status.objects.all()
     return render(request, 'statuses/list.html', {'statuses': statuses})
 
