@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from task_manager.tasks.models import Task
-from pyexpat.errors import messages
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -23,11 +22,6 @@ def task_info(request, pk):
 def tasks_list(request):
     tasks = Task.objects.all()
     return render(request, 'tasks/tasks_list.html', {'tasks': tasks})
-
-
-def task_update(request, pk):
-    task = Task.objects.get(pk=pk)
-    return render(request, 'tasks/task_update.html', {'task': task})
 
 
 def task_delete(request, pk):
