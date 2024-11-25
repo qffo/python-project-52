@@ -20,6 +20,7 @@
         <a class="nav-link" href="{% url 'user_update' user.pk %}" style="text-decoration: none; color: #7bd5ff;">👤 {{ user.username }}</a>
         <a class="nav-link" href="{% url 'status_list' %}">Статусы</a>
         <a class="nav-link" href="{% url 'tasks_list' %}">Задачи</a>
+        <a class="nav-link" href="{% url 'labels_list' %}">Метки</a>
         {% endif %}
         <a class="nav-link" aria-current="page" href="{% url 'user_list' %}">Пользователи</a>
         {% if not user.is_authenticated %}
