@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<body>
+    <h1 class="my-4">Создать метку</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="{{ form.name.id_for_label }}" class="form-label">Имя</label>
+            <input type="text" name="name" class="form-control" placeholder="Имя" id="{{ form.name.id_for_label }}">
+        </div>
+        <input class="btn btn-primary btn-secondary fw-bold border-white bg-white" type="submit" value="Создать">
+    </form>
+</body>
+
+{% endblock %}
