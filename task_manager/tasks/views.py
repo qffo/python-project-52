@@ -8,6 +8,7 @@ from django.views import View
 from task_manager.tasks.forms import TaskCreationForm
 from task_manager.statuses.models import Status
 from task_manager.users.models import User
+from task_manager.labels.models import Label
 
 
 def task_info(request, pk):
@@ -48,10 +49,12 @@ class TaskCreateView(LoginRequiredMixin, View):
         form = TaskCreationForm()
         statuses = Status.objects.all()
         users = User.objects.all()
+        labels = Label.objects.all()
         return render(request, 'tasks/task_create.html', {
             'form': form,
             'statuses': statuses,
-            'users': users
+            'users': users,
+            'labels': labels
         })
 
     def post(self, request):
@@ -60,6 +63,9 @@ class TaskCreateView(LoginRequiredMixin, View):
             task = form.save(commit=False)
             task.author = request.user
             task.save()
+            labels = form.cleaned_data.get('labels')
+            task.labels.set(labels)
+            task.save(update_fields=['labels'])
             messages.success(request, "Задача успешно создана")
             return redirect('tasks_list')
         messages.error(request, "Ошибка при создании задачи")
@@ -77,6 +83,8 @@ def task_update(request, pk):
         form = TaskCreationForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
+            labels = form.cleaned_data.get('labels')
+            task.labels.set(labels)
             messages.success(request, "Задача успешно изменена")
             return redirect('task_info', pk=task.pk)
         else:

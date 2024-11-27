@@ -41,7 +41,14 @@
               {% for user in users %}
                   <option value="{{ user.id }}">{{ user.username }}</option>
               {% endfor %}
-          </select>
+          </select> 
+        </div>
+
+        <div class="mb-3">
+            <div class="col">
+            <label class="form-label" for="id_tags">Метки</label>
+            {{ form.labels }}
+        </div>
         </div>
 
         <input class="btn btn-primary btn-secondary fw-bold border-white bg-white" type="submit" value="Создать">

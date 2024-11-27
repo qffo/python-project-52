@@ -28,6 +28,20 @@
           <div class="col">{{ task.created_at|date:"d.m.Y H:i" }}</div>
           <div class="row p-1">
         </div>
+
+        <div class="row p-1">
+          <div class="col">
+            <h6>Метки:</h6>
+            <ul>
+                {% for label in task.labels.all %}
+                    <li>{{ label }}</li>
+                {% empty %}
+                    <li>Нет меток</li>
+                {% endfor %}
+            </ul>
+          </div>
+        </div>
+
         <div class="row p-1">
           <div class="col">
             <a href="{% url 'task_update' task.pk %}">Изменить</a>
