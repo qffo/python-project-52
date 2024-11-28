@@ -43,11 +43,17 @@
               {% endfor %}
           </select>
         </div>
-
+        
         <div class="mb-3">
-            <label class="form-label" for="id_labels">Метки</label>
-            {{ form.labels }}
-          </div>
+          <label class="form-label" for="id_labels">Метки</label>
+          <select name="labels" class="form-select" id="id_labels" multiple>
+            {% for label in form.labels.field.queryset %}
+            <option value="{{ label.id }}" {% if label.id in form.labels.value %}selected{% endif %}>
+              {{ label.name }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
 
         <input class="btn btn-primary btn-secondary fw-bold border-white bg-white" type="submit" value="Изменить">
     </form>
