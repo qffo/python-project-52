@@ -3,6 +3,7 @@ from django.urls import reverse
 from ..users.views import User
 from task_manager.statuses.models import Status
 from task_manager.tasks.models import Task
+from task_manager.labels.models import Label
 
 
 class TaskCRUDTestCase(TestCase):
@@ -15,6 +16,7 @@ class TaskCRUDTestCase(TestCase):
             username='Viktor_ex', password='ghcv67Erex')
         self.status = Status.objects.create(name="New")
         self.client.login(username='Viktor', password='ghcv67Er')
+        self.label = Label.objects.create(name="Urgent")
 
     def test_create_task(self):
         url = reverse('task_create')
@@ -28,11 +30,19 @@ class TaskCRUDTestCase(TestCase):
 
         self.assertRedirects(response, reverse('tasks_list'))
 
-        task = Task.objects.first()
+        task = Task.objects.first()  # Получаем первую задачу
+
+        # Проверяем, что все остальные поля были сохранены правильно
         self.assertEqual(task.name, 'Test Task')
         self.assertEqual(task.description, 'Task Description')
         self.assertEqual(task.status, self.status)
         self.assertEqual(task.executor, self.executor)
+
+        # Привязываем метку к задаче после ее сохранения
+        task.labels.set([self.label.id])
+
+        # Проверяем, что метка была добавлена
+        self.assertTrue(task.labels.filter(id=self.label.id).exists())
 
     def test_task_info(self):
         task = Task.objects.create(

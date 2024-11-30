@@ -65,7 +65,6 @@ class TaskCreateView(LoginRequiredMixin, View):
             task.save()
             labels = form.cleaned_data.get('labels')
             task.labels.set(labels)
-            task.save(update_fields=['labels'])
             messages.success(request, "Задача успешно создана")
             return redirect('tasks_list')
         messages.error(request, "Ошибка при создании задачи")

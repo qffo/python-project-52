@@ -142,7 +142,7 @@ STATIC_URL = 'static/'
 
 BOOTSTRAP5 = {
     # The complete URL to the Bootstrap CSS theme file (None means no theme).
-    "theme_url": '/static/cover.css',
+    "theme_url": 'https://getbootstrap.com/docs/5.1/examples/cover/cover.css',
 }
 
 LOGIN_REDIRECT_URL = '/'
