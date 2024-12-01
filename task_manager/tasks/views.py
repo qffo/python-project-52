@@ -1,5 +1,3 @@
-from django.shortcuts import render
-from django.urls import reverse_lazy
 from task_manager.tasks.models import Task
 from django.contrib import messages
 from django.shortcuts import redirect, render
@@ -25,8 +23,35 @@ def tasks_list(request):
         messages.warning(
             request, "Вы не авторизованы! Пожалуйста, выполните вход.")
         return redirect('login')
+
     tasks = Task.objects.all()
-    return render(request, 'tasks/tasks_list.html', {'tasks': tasks})
+
+    status_filter = request.GET.get('status')
+    if status_filter:
+        tasks = tasks.filter(status_id=status_filter)
+
+    executor_filter = request.GET.get('executor')
+    if executor_filter:
+        tasks = tasks.filter(executor_id=executor_filter)
+
+    label_filter = request.GET.get('label')
+    if label_filter:
+        tasks = tasks.filter(labels__id=label_filter)
+
+    author_filter = request.GET.get('author')
+    if author_filter == 'mine':
+        tasks = tasks.filter(author=request.user)
+
+    statuses = Status.objects.all()
+    users = User.objects.all()
+    labels = Label.objects.all()
+
+    return render(request, 'tasks/tasks_list.html', {
+        'tasks': tasks,
+        'statuses': statuses,
+        'users': users,
+        'labels': labels,
+    })
 
 
 def task_delete(request, pk):

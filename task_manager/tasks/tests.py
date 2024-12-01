@@ -30,18 +30,15 @@ class TaskCRUDTestCase(TestCase):
 
         self.assertRedirects(response, reverse('tasks_list'))
 
-        task = Task.objects.first()  # Получаем первую задачу
+        task = Task.objects.first()
 
-        # Проверяем, что все остальные поля были сохранены правильно
         self.assertEqual(task.name, 'Test Task')
         self.assertEqual(task.description, 'Task Description')
         self.assertEqual(task.status, self.status)
         self.assertEqual(task.executor, self.executor)
 
-        # Привязываем метку к задаче после ее сохранения
         task.labels.set([self.label.id])
 
-        # Проверяем, что метка была добавлена
         self.assertTrue(task.labels.filter(id=self.label.id).exists())
 
     def test_task_info(self):
@@ -107,6 +104,7 @@ class TaskCRUDTestCase(TestCase):
             status=self.status,
             executor=self.executor
         )
+        self.assertTrue(another_user.is_authenticated)
         self.client.login(username='user2', password='debg55juk')
         url = reverse('task_delete', args=[task.pk])
         response = self.client.post(url)

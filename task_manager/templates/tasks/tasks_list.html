@@ -6,6 +6,52 @@
 
     <p><a href="{% url 'task_create' %}" class="btn btn-primary btn-secondary fw-bold border-white bg-white">Создать задачу</a></p>
 
+    <form method="get" class="my-3">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="status">Статус</label>
+                <select name="status" id="status" class="form-control">
+                    <option value="">Все</option>
+                    {% for status in statuses %}
+                        <option value="{{ status.id }}" {% if request.GET.status == status.id|stringformat:'s' %}selected{% endif %}>{{ status.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="executor">Исполнитель</label>
+                <select name="executor" id="executor" class="form-control">
+                    <option value="">Все</option>
+                    {% for user in users %}
+                        <option value="{{ user.id }}" {% if request.GET.executor == user.id|stringformat:'s' %}selected{% endif %}>{{ user.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="label">Метка</label>
+                <select name="label" id="label" class="form-control">
+                    <option value="">Все</option>
+                    {% for label in labels %}
+                        <option value="{{ label.id }}" {% if request.GET.label == label.id|stringformat:'s' %}selected{% endif %}>{{ label.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="author">Автор</label>
+                <select name="author" id="author" class="form-control">
+                    <option value="">Все</option>
+                    <option value="mine" {% if request.GET.author == 'mine' %}selected{% endif %}>Мои задачи</option>
+                </select>
+            </div>
+
+            <div class="col-md-12 mt-3">
+                <button type="submit" class="btn btn-primary btn-secondary fw-bold border-white bg-white">Показать</button>
+            </div>
+        </div>
+    </form>
+
     <table class="table table-bordered table-hover table-dark text-nowrap" data-test="urls">
         <thead>
             <tr>

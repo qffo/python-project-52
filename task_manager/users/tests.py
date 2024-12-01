@@ -39,6 +39,7 @@ class UserRegistrationTestCase(TestCase):
             'first_name': 'UpdatedFirstName',
             'last_name': 'UpdatedLastName'
         })
+        self.assertEqual(response.status_code, 302)
         self.user.refresh_from_db()
         self.assertEqual(self.user.username, 'updateViktor')
         self.assertEqual(self.user.email, 'updateduser@example.com')
