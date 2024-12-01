@@ -16,6 +16,11 @@ class CustomLoginView(LoginView):
         messages.success(self.request, "Вы залогинены")
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        messages.error(
+            self.request, "Пожалуйста, введите правильные имя пользователя и пароль. Оба поля могут быть чувствительны к регистру.")
+        return super().form_invalid(form)
+
 
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('index')
