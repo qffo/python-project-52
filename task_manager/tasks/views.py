@@ -92,7 +92,6 @@ class TaskCreateView(LoginRequiredMixin, View):
             task.labels.set(labels)
             messages.success(request, "Задача успешно создана")
             return redirect('tasks_list')
-        messages.error(request, "Ошибка при создании задачи")
         return render(request, 'tasks/task_create.html', {'form': form})
 
 

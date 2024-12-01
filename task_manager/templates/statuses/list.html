@@ -26,6 +26,7 @@
       <td>{{ status.created_at|date:"d.m.Y H:i" }}</td>
       <td>
         <a href="{% url 'status_update' status.pk %}" style="text-decoration: none; color: #7bd5ff;">Изменить</a>
+        <br>
         <a href="{% url 'status_delete' status.pk %}" style="text-decoration: none; color: #7bd5ff;">Удалить</a>
       </td>
     </tr>

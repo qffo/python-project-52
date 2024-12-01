@@ -25,6 +25,7 @@
       <td>{{ label.created_at|date:"d.m.Y H:i" }}</td>
       <td>
         <a href="{% url 'labels_update' label.pk %}" style="text-decoration: none; color: #7bd5ff;">Изменить</a>
+        <br>
         <a href="{% url 'labels_delete' label.pk %}" style="text-decoration: none; color: #7bd5ff;">Удалить</a>
       </td>
     </tr>
