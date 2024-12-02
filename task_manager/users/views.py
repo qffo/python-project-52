@@ -32,7 +32,7 @@ class UserUpdateView(UpdateView):
 
     def get(self, request, *args, **kwargs):
         try:
-            user = self.get_object()
+            self.get_object()
         except Http404:
             return redirect('user_list')
         return super().get(request, *args, **kwargs)
