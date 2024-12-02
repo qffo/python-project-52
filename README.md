@@ -34,7 +34,7 @@ git clone git@github.com:qffo/python-project-52.git
 cd python-project-52
 ```  
 #### Secret keys
-Создать в директории python-project-52 .env файл для переменных окружения со следующей информацией:  
+Create a file for environment variables in the python-project-52 .env directory with the following information:
 SECRET_KEY = ''
 DATABASE_URL = ''
 ROLLBAR_ACCESS_TOKEN = ''
