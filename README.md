@@ -16,6 +16,8 @@ Demo -> https://python-project-52-by4e.onrender.com/
 - Pip version 24.2
 - Poetry version 1.8.3
 
+
+
 This project was created using these tools:
 
 | Tools                                                           | Description                                       |
