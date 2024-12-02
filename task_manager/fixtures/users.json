@@ -1,13 +1,35 @@
 [
     {
-        "model": "users.User",
-        "pk": 1,
-        "fields": {
-            "username": "ZoeKitty",
-            "first_name": "Zoe",
-            "last_name": "Bloom",
-            "password": "GtghyhyJ4",
-            "email": "zoekitty@example.com"
-        }
+     "model": "users.user",
+     "pk": 1,
+     "fields": {
+      "password": "GrgrJ89llKbn",
+      "username": "Eva",
+      "date_joined": "2024-12-02T08:45:25.855Z",
+      "first_name": "Eva",
+      "last_name": "Elfie"
+     }
+    },
+    {
+     "model": "users.user",
+     "pk": 2,
+     "fields": {
+      "password": "GbbcDF56Lp",
+      "username": "Lily",
+      "date_joined": "2024-12-01T08:40:25.855Z",
+      "first_name": "Lily",
+      "last_name": "Glee"
+     }
+    },
+    {
+     "model": "users.user",
+     "pk": 3,
+     "fields": {
+      "password": "FsfVbgbh64Gh",
+      "username": "Zoe",
+      "date_joined": "2024-12-02T08:45:25.855Z",
+      "first_name": "Zoe",
+      "last_name": "Bloom"
+     }
     }
-]
+    ]
