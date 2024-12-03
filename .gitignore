@@ -13,5 +13,3 @@ files_for_test/
 exampless/
 .env
 *.log
-*.sqlite3
-db.sqlite3
