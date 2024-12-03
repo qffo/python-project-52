@@ -14,7 +14,11 @@ class UserCreateView(CreateView):
     form_class = CustomUserCreationForm
     template_name = 'users/create.html'
     success_url = reverse_lazy('login')
-    success_message = "Пользователь успешно зарегистрирован"
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, "Пользователь успешно зарегистрирован")
+        return response
 
 
 class UserUpdateView(UpdateView):
@@ -37,6 +41,11 @@ class UserUpdateView(UpdateView):
         except Http404:
             return redirect('user_list')
         return super().get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, "Пользователь успешно изменен")
+        return response
 
 
 def user_delete(request, pk):
