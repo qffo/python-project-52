@@ -1,42 +1,20 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
 
 {% block content %}
     <h1 class="my-4">Изменение пользователя</h1>
-
-    <form method="post">
-      {% csrf_token %}
-      
-      <div class="mb-3">
-        <label class="form-label" for="id_first_name">Имя</label>
-        <input type="text" name="first_name" maxlength="150" class="form-control" placeholder="Имя" required id="id_first_name" value="{{ form.first_name.value }}">
-      </div>
-      
-      <div class="mb-3">
-        <label class="form-label" for="id_last_name">Фамилия</label>
-        <input type="text" name="last_name" maxlength="150" class="form-control" placeholder="Фамилия" required id="id_last_name" value="{{ form.last_name.value }}">
-      </div>
-      
-      <div class="mb-3">
-        <label class="form-label" for="id_username">Имя пользователя</label>
-        <input type="text" name="username" maxlength="150" autofocus class="form-control" placeholder="Имя пользователя" required aria-describedby="id_username_helptext" id="id_username" value="{{ form.username.value }}">
-        <div class="form-text text-white">Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.</div>
-      </div>
-      
-      <div class="mb-3">
-        <label class="form-label" for="id_password1">Пароль</label>
-        <input type="password" name="password1" autocomplete="new-password" class="form-control" placeholder="Пароль" required aria-describedby="id_password1_helptext" id="id_password1">
-        <div class="form-text">
-          <ul class="text-white">
-            <li>Ваш пароль должен содержать как минимум 3 символа.</li>
-          </ul>
+<div class="container">
+    <form action="{% url "user_update" pk=object.pk %}" method="post">
+        {% csrf_token %}
+        {{ pk }}
+        <div class="mb-3 row">
+            {% bootstrap_form form %}
         </div>
-      </div>
-      
-      <div class="mb-3">
-        <label class="form-label" for="id_password2">Подтверждение пароля</label>
-        <input type="password" name="password2" autocomplete="new-password" class="form-control" placeholder="Подтверждение пароля" required aria-describedby="id_password2_helptext" id="id_password2">
-        <div class="form-text text-white">Для подтверждения введите, пожалуйста, пароль ещё раз.</div>
-      </div>
-      <input class="btn btn-primary btn-secondary fw-bold border-white bg-white" type="submit" value="Изменить">
+        <div class="mb-3 row">
+            <div class="col-sm-8">
+                <button type="submit" class="btn btn-primary">Изменить</button>
+            </div>
+        </div>
     </form>
-{% endblock %}
+</div>
+{% endblock content %}
