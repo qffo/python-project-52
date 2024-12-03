@@ -14,6 +14,7 @@ class UserCreateView(CreateView):
     form_class = CustomUserCreationForm
     template_name = 'users/create.html'
     success_url = reverse_lazy('login')
+    success_message = "Пользователь успешно зарегистрирован"
 
 
 class UserUpdateView(UpdateView):
