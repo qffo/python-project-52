@@ -7,15 +7,7 @@ from task_manager.tasks.forms import TaskCreationForm
 from task_manager.statuses.models import Status
 from task_manager.users.models import User
 from task_manager.labels.models import Label
-
-
-def task_info(request, pk):
-    if not request.user.is_authenticated:
-        messages.warning(
-            request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return redirect('login')
-    task = Task.objects.get(pk=pk)
-    return render(request, 'tasks/task_info.html', {'task': task})
+from task_manager.tasks.filters import TaskFilter
 
 
 def tasks_list(request):
@@ -24,23 +16,9 @@ def tasks_list(request):
             request, "Вы не авторизованы! Пожалуйста, выполните вход.")
         return redirect('login')
 
-    tasks = Task.objects.all()
-
-    status_filter = request.GET.get('status')
-    if status_filter:
-        tasks = tasks.filter(status_id=status_filter)
-
-    executor_filter = request.GET.get('executor')
-    if executor_filter:
-        tasks = tasks.filter(executor_id=executor_filter)
-
-    label_filter = request.GET.get('label')
-    if label_filter:
-        tasks = tasks.filter(labels__id=label_filter)
-
-    author_filter = request.GET.get('author')
-    if author_filter == 'mine':
-        tasks = tasks.filter(author=request.user)
+    filter = TaskFilter(
+        request.GET, queryset=Task.objects.all(), request=request)
+    tasks = filter.qs
 
     statuses = Status.objects.all()
     users = User.objects.all()
@@ -51,7 +29,17 @@ def tasks_list(request):
         'statuses': statuses,
         'users': users,
         'labels': labels,
+        'filter': filter
     })
+
+
+def task_info(request, pk):
+    if not request.user.is_authenticated:
+        messages.warning(
+            request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        return redirect('login')
+    task = Task.objects.get(pk=pk)
+    return render(request, 'tasks/task_info.html', {'task': task})
 
 
 def task_delete(request, pk):
