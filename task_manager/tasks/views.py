@@ -97,7 +97,7 @@ def task_update(request, pk):
             labels = form.cleaned_data.get('labels')
             task.labels.set(labels)
             messages.success(request, "Задача успешно изменена")
-            return redirect('task_info', pk=task.pk)
+            return redirect('tasks_list')
         else:
             messages.error(request, "Ошибка при обновлении задачи")
     else:
