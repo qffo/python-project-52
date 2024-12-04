@@ -50,19 +50,22 @@ class UserUpdateView(UpdateView):
 
 def user_delete(request, pk):
     user = get_object_or_404(User, pk=pk)
+
     if user != request.user:
         messages.error(
             request, "У вас нет прав для изменения другого пользователя.")
         return redirect('user_list')
 
-    try:
-        user.delete()
-        messages.success(request, "Пользователь успешно удален.")
-    except ProtectedError:
-        messages.error(
-            request, "Невозможно удалить пользователя, потому что он используется")
+    if request.method == 'POST':
+        try:
+            user.delete()
+            messages.success(request, "Пользователь успешно удален.")
+        except ProtectedError:
+            messages.error(
+                request, "Невозможно удалить пользователя, потому что он используется.")
+        return redirect('user_list')
 
-    return redirect('user_list')
+    return render(request, 'users/user_delete.html', {'user': user})
 
 
 def user_list(request):
