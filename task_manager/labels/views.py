@@ -45,6 +45,7 @@ class LabelsUpdateView(LoginRequiredMixin, View):
         form = LabelCreationForm(request.POST, instance=label)
         if form.is_valid():
             form.save()
+            messages.success(request, "Метка успешно изменена")
             return redirect('labels_list')
         return render(request, 'labels/labels_update.html', {'form': form})
 

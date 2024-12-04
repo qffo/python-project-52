@@ -41,6 +41,7 @@ class StatusUpdateView(LoginRequiredMixin, View):
         form = StatusForm(request.POST, instance=status)
         if form.is_valid():
             form.save()
+            messages.success(request, "Статус успешно изменен")
             return redirect('status_list')
         return render(request, 'statuses/status_update.html', {'form': form})
 
