@@ -40,10 +40,10 @@
             <div class="col-md-3">
                 <label for="author">Автор</label>
                 <div>
-                    <input type="checkbox" name="author" value="mine" {% if request.GET.author == 'mine' %}checked{% endif %}>
+                    <input type="checkbox" name="author" id="author" value="mine" {% if request.GET.author == 'mine' %}checked{% endif %}>
                     <label for="author">Только свои задачи</label>
                 </div>
-            </div>
+            </div>            
 
             <div class="col-md-12 mt-3">
                 <button type="submit" class="btn btn-primary btn-secondary fw-bold border-white bg-white">Показать</button>
