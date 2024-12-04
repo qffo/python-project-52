@@ -1,10 +1,11 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import ProtectedError
 from django.shortcuts import redirect, render
 from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
+
 from task_manager.labels.forms import LabelCreationForm
 from task_manager.labels.models import Label
-from django.db.models import ProtectedError
 
 
 def labels_list(request):

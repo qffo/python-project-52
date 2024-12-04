@@ -1,7 +1,8 @@
-from django.urls import reverse
-from ..users.views import User
 from django.test import TestCase
+from django.urls import reverse
+
 from task_manager.labels.models import Label
+from task_manager.users.views import User
 
 
 class LabelTests(TestCase):

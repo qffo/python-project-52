@@ -1,10 +1,11 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import ProtectedError
 from django.shortcuts import redirect, render
 from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
+
 from task_manager.statuses.forms import StatusForm
 from task_manager.statuses.models import Status
-from django.db.models import ProtectedError
 
 
 def index(request):

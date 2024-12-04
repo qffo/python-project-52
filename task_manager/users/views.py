@@ -1,12 +1,12 @@
 from django.contrib import messages
-from django.shortcuts import redirect, render
-from .models import User
+from django.db.models import ProtectedError
+from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
-from .forms import CustomUserCreationForm, CustomUserChangeForm
-from django.shortcuts import get_object_or_404
-from django.http import Http404
-from django.db.models import ProtectedError
+
+from .forms import CustomUserChangeForm, CustomUserCreationForm
+from .models import User
 
 
 class UserCreateView(CreateView):

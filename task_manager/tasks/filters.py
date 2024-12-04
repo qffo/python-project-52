@@ -1,7 +1,8 @@
 import django_filters
 from django.forms import CheckboxInput
-from task_manager.tasks.models import Task
+
 from task_manager.labels.models import Label
+from task_manager.tasks.models import Task
 
 
 class TaskFilter(django_filters.FilterSet):

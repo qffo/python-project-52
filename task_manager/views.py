@@ -1,7 +1,7 @@
 from django.contrib import messages
+from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.contrib.auth.views import LoginView, LogoutView
 
 
 def index(request):

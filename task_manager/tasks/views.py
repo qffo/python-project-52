@@ -1,13 +1,14 @@
-from task_manager.tasks.models import Task
 from django.contrib import messages
-from django.shortcuts import redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect, render
 from django.views import View
-from task_manager.tasks.forms import TaskCreationForm
-from task_manager.statuses.models import Status
-from task_manager.users.models import User
+
 from task_manager.labels.models import Label
+from task_manager.statuses.models import Status
 from task_manager.tasks.filters import TaskFilter
+from task_manager.tasks.forms import TaskCreationForm
+from task_manager.tasks.models import Task
+from task_manager.users.models import User
 
 
 def tasks_list(request):
