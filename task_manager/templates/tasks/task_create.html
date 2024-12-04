@@ -1,50 +1,19 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
 
 {% block content %}
-<body>
     <h1 class="my-4">Создать задачу</h1>
-
-    <form method="post">
+<div class="container">
+    <form action="{% url "task_create" %}" method="post">
         {% csrf_token %}
-        <div class="mb-3">
-          <label class="form-label" for="id_name">Имя</label>
-          <input type="text" name="name" maxlength="150" class="form-control" placeholder="Имя" required id="id_name">
+        <div class="mb-3 row">
+            {% bootstrap_form form %}
         </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="id_description">Описание</label>
-          <textarea name="description" cols="40" rows="10" class="form-control" placeholder="Описание" id="id_description"></textarea>
+        <div class="mb-3 row">
+            <div class="col-sm-8">
+                <button type="submit" class="btn btn-primary">Создать</button>
+            </div>
         </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="id_status">Статус</label>
-          <select name="status" class="form-select" required id="id_status">
-              <option value="" selected>---------</option>
-              {% for status in statuses %}
-                  <option value="{{ status.id }}">{{ status.name }}</option>
-              {% endfor %}
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="id_executor">Исполнитель</label>
-          <select name="executor" class="form-select" id="id_executor">
-              <option value="" selected>---------</option>
-              {% for user in users %}
-                  <option value="{{ user.id }}">{{ user.username }}</option>
-              {% endfor %}
-          </select> 
-        </div>
-
-        <div class="mb-3">
-            <div class="col">
-            <label class="form-label" for="id_tags">Метки</label>
-            {{ form.labels }}
-        </div>
-        </div>
-
-        <input class="btn btn-primary btn-secondary fw-bold border-white bg-white" type="submit" value="Создать">
     </form>
-</body>
-
-{% endblock %}
+</div>
+{% endblock content %}
