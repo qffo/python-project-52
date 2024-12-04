@@ -37,13 +37,12 @@
                     {% endfor %}
                 </select>
             </div>
-
             <div class="col-md-3">
                 <label for="author">Автор</label>
-                <select name="author" id="author" class="form-control">
-                    <option value="">Все</option>
-                    <option value="mine" {% if request.GET.author == 'mine' %}selected{% endif %}>Мои задачи</option>
-                </select>
+                <div>
+                    <input type="checkbox" name="author" value="mine" {% if request.GET.author == 'mine' %}checked{% endif %}>
+                    <label for="author">Только свои задачи</label>
+                </div>
             </div>
 
             <div class="col-md-12 mt-3">
