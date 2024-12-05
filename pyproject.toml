@@ -29,5 +29,5 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
-line-length = 88
 select = ["E", "W", "I", "C90"]
+exclude = ["*/migrations/*", "settings.py"]
