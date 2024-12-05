@@ -13,7 +13,8 @@ class Task(models.Model):
     status = models.ForeignKey(
         Status, on_delete=models.PROTECT, verbose_name=_('Status'))
     executor = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name='Executor', verbose_name=_('Executor'))
+        User, on_delete=models.PROTECT, related_name='Executor', verbose_name=_(
+            'Executor'))
     labels = models.ManyToManyField(Label, blank=True, verbose_name=_('Labels'))
     created_at = models.DateTimeField(auto_now_add=True)
 

@@ -34,12 +34,13 @@ class UserRegistrationTestCase(TestCase):
 
     def test_user_update(self):
         self.client.login(username='Viktor', password='gthn56FeWQ')
-        response = self.client.post(reverse('user_update', kwargs={'pk': self.user.pk}), {
-            'username': 'updateViktor',
-            'email': 'updateduser@example.com',
-            'first_name': 'UpdatedFirstName',
-            'last_name': 'UpdatedLastName'
-        })
+        response = self.client.post(
+            reverse('user_update', kwargs={'pk': self.user.pk}), {
+                'username': 'updateViktor',
+                'email': 'updateduser@example.com',
+                'first_name': 'UpdatedFirstName',
+                'last_name': 'UpdatedLastName'
+            })
         self.assertEqual(response.status_code, 302)
         self.user.refresh_from_db()
         self.assertEqual(self.user.username, 'updateViktor')
