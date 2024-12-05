@@ -31,7 +31,8 @@ class UserUpdateView(UpdateView):
         user = super().get_object(queryset)
         if user != self.request.user:
             messages.error(
-                self.request, "У вас нет прав для изменения другого пользователя.")
+                self.request,
+                "У вас нет прав для изменения другого пользователя.")
             raise Http404("Вы не можете редактировать чужие данные.")
         return user
 
@@ -62,7 +63,8 @@ def user_delete(request, pk):
             messages.success(request, "Пользователь успешно удален.")
         except ProtectedError:
             messages.error(
-                request, "Невозможно удалить пользователя, потому что он используется.")
+                request,
+                "Невозможно удалить пользователя, потому что он используется.")
         return redirect('user_list')
 
     return render(request, 'users/user_delete.html', {'user': user})

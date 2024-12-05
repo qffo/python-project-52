@@ -28,7 +28,8 @@ class LabelsCreateView(LoginRequiredMixin, View):
             name = form.cleaned_data['name']
             if Label.objects.filter(name=name).exists():
                 form.add_error('name', 'Label с таким Имя уже существует.')
-                return render(request, 'labels/labels_create.html', {'form': form})
+                return render(request,
+                              'labels/labels_create.html', {'form': form})
             form.save()
             messages.success(request, "Метка успешно создана")
             return redirect('labels_list')
@@ -60,8 +61,11 @@ class LabelDeleteView(LoginRequiredMixin, View):
         label = Label.objects.get(pk=pk)
         try:
             label.delete()
-            messages.success(request, "Метка успешно удалена")
+            messages.success(
+                request,
+                "Метка успешно удалена")
         except ProtectedError:
             messages.error(
-                request, "Невозможно удалить метку, потому что она используется")
+                request,
+                "Невозможно удалить метку, потому что она используется")
         return redirect('labels_list')

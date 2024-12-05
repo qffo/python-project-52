@@ -52,7 +52,10 @@ class StatusDeleteView(LoginRequiredMixin, View):
 
     def get(self, request, pk):
         status = Status.objects.get(pk=pk)
-        return render(request, 'statuses/status_delete.html', {'status': status})
+        return render(request,
+                      'statuses/status_delete.html',
+                      {'status': status}
+                      )
 
     def post(self, request, pk):
         status = Status.objects.get(pk=pk)
@@ -61,5 +64,6 @@ class StatusDeleteView(LoginRequiredMixin, View):
             messages.success(request, "Статус успешно удален.")
         except ProtectedError:
             messages.error(
-                request, "Невозможно удалить статус, потому что он используется")
+                request,
+                "Невозможно удалить статус, потому что он используется")
         return redirect('status_list')

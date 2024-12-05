@@ -18,7 +18,8 @@ class CustomLoginView(LoginView):
 
     def form_invalid(self, form):
         messages.error(
-            self.request, """Пожалуйста, введите правильные имя пользователя и пароль.
+            self.request,
+            """Пожалуйста, введите правильные имя пользователя и пароль.
              Оба поля могут быть чувствительны к регистру.""")
         return super().form_invalid(form)
 

@@ -10,7 +10,10 @@ class UserRegistrationTestCase(TestCase):
     def setUp(self):
         self.url = reverse('user_create')
         self.user = User.objects.create_user(
-            username='Viktor', password='gthn56FeWQ', email='Conpirlol@example.com')
+            username='Viktor',
+            password='gthn56FeWQ',
+            email='Conpirlol@example.com'
+        )
 
     def test_user_create(self):
         data = {
