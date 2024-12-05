@@ -70,14 +70,18 @@ class TaskCRUDTestCase(TestCase):
             'description': 'Updated Description',
             'status': self.status.id,
             'executor': self.executor.id,
+            'labels': [self.label.id],
         }
+
         response = self.client.post(url, data)
 
-        self.assertRedirects(response, reverse('task_info', args=[task.pk]))
+        self.assertRedirects(response, reverse('tasks_list'))
 
         task.refresh_from_db()
         self.assertEqual(task.name, 'Updated Task')
         self.assertEqual(task.description, 'Updated Description')
+
+        self.assertIn(self.label, task.labels.all())
 
     def test_delete_task(self):
         task = Task.objects.create(

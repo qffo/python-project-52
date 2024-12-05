@@ -76,7 +76,7 @@ class TaskFilterTests(TestCase):
     def test_filter_by_label(self):
         self.client.login(username='Viktor1', password='Gtgt67HNnnm')
         response = self.client.get(
-            reverse('tasks_list') + '?label=' + str(self.label1.id))
+            reverse('tasks_list') + '?labels=' + str(self.label1.id))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Задача 1')
         self.assertNotContains(response, 'Задача 2')
@@ -85,7 +85,9 @@ class TaskFilterTests(TestCase):
 
     def test_filter_by_author(self):
         self.client.login(username='Viktor1', password='Gtgt67HNnnm')
-        response = self.client.get(reverse('tasks_list') + '?author=mine')
+        # Используем фильтр only_own_tasks
+        response = self.client.get(
+            reverse('tasks_list') + '?only_own_tasks=True')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Задача 1')
         self.assertContains(response, 'Задача 2')
