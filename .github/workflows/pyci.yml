@@ -25,6 +25,7 @@ jobs:
       - name: DATABASE_URL for test
         run: |
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
+          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
 
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
