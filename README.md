@@ -1,6 +1,6 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/qffo/python-project-52/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/qffo/python-project-52/actions)
-
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d1d25b3ceb16d7f55d69/test_coverage)](https://codeclimate.com/github/qffo/python-project-52/test_coverage)
 
 
 ## Description
