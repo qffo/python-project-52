@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-04 15:39+0300\n"
+"POT-Creation-Date: 2024-12-12 21:56+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,23 +20,39 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: task_manager/tasks/models.py:9
+#: task_manager/labels/views.py:67
+msgid "The label was successfully deleted"
+msgstr "Метка успешно удалена"
+
+#: task_manager/labels/views.py:71
+msgid "Cannot delete this label because it is being used"
+msgstr "Невозможно удалить метку, потому что она используется"
+
+#: task_manager/statuses/views.py:67
+msgid "The status has been successfully deleted."
+msgstr "Статус успешно удален."
+
+#: task_manager/statuses/views.py:72
+msgid "Cannot delete status; it is in use"
+msgstr "Невозможно удалить статус, потому что он используется"
+
+#: task_manager/tasks/models.py:10
 msgid "Name"
 msgstr "Имя"
 
-#: task_manager/tasks/models.py:10
+#: task_manager/tasks/models.py:11
 msgid "Description"
 msgstr "Описание"
 
-#: task_manager/tasks/models.py:13
+#: task_manager/tasks/models.py:14
 msgid "Status"
 msgstr "Статус"
 
-#: task_manager/tasks/models.py:15
+#: task_manager/tasks/models.py:17
 msgid "Executor"
 msgstr "Исполнитель"
 
-#: task_manager/tasks/models.py:16
+#: task_manager/tasks/models.py:18
 msgid "Labels"
 msgstr "Метки"
 
