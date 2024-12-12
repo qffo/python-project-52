@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import ProtectedError
 from django.shortcuts import redirect, render
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from task_manager.statuses.forms import StatusForm
@@ -61,9 +62,13 @@ class StatusDeleteView(LoginRequiredMixin, View):
         status = Status.objects.get(pk=pk)
         try:
             status.delete()
-            messages.success(request, "Статус успешно удален.")
+            messages.success(
+                request,
+                _("The status has been successfully deleted.")
+            )
         except ProtectedError:
             messages.error(
                 request,
-                "Невозможно удалить статус, потому что он используется")
+                _("Cannot delete status; it is in use")
+            )
         return redirect('status_list')

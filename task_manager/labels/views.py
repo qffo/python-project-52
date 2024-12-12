@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import ProtectedError
 from django.shortcuts import redirect, render
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from task_manager.labels.forms import LabelCreationForm
@@ -63,9 +64,9 @@ class LabelDeleteView(LoginRequiredMixin, View):
             label.delete()
             messages.success(
                 request,
-                "Метка успешно удалена")
+                _("The label was successfully deleted"))
         except ProtectedError:
             messages.error(
                 request,
-                "Невозможно удалить метку, потому что она используется")
+                _("Cannot delete this label because it is being used"))
         return redirect('labels_list')
