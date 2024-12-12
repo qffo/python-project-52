@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from .views import User
+from task_manager.users.views import User
 
 
 class UserRegistrationTestCase(TestCase):

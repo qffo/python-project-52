@@ -2,8 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from task_manager.statuses.models import Status
-
-from ..users.views import User
+from task_manager.users.views import User
 
 
 class StatusTests(TestCase):
