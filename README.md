@@ -10,7 +10,7 @@ Task Manager – web application. It allows you to set tasks, assign performers 
 
 Demo -> https://python-project-52-by4e.onrender.com/
 
-![пример jpeg](task_manager/static/images/sample2.jpeg)
+![пример jpeg](docs/sample.jpeg)
 
 ## Minimum requirements for starting a project:
 - Python version 3.11
