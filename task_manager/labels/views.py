@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import ProtectedError
 from django.shortcuts import redirect, render
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _
 from django.views import View
 
 from task_manager.labels.forms import LabelCreationForm
@@ -12,7 +12,7 @@ from task_manager.labels.models import Label
 def labels_list(request):
     if not request.user.is_authenticated:
         messages.warning(
-            request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+            request, _("You are not logged in! Please log in."))
         return redirect('login')
     labels = Label.objects.all()
     return render(request, 'labels/labels_list.html', {'labels': labels})
@@ -28,11 +28,12 @@ class LabelsCreateView(LoginRequiredMixin, View):
         if form.is_valid():
             name = form.cleaned_data['name']
             if Label.objects.filter(name=name).exists():
-                form.add_error('name', 'Label с таким Имя уже существует.')
+                form.add_error(
+                    'name', _('Label with this Name already exists.'))
                 return render(request,
                               'labels/labels_create.html', {'form': form})
             form.save()
-            messages.success(request, "Метка успешно создана")
+            messages.success(request, _("The label was created successfully"))
             return redirect('labels_list')
         return render(request, 'labels/labels_create.html', {'form': form})
 
@@ -48,7 +49,7 @@ class LabelsUpdateView(LoginRequiredMixin, View):
         form = LabelCreationForm(request.POST, instance=label)
         if form.is_valid():
             form.save()
-            messages.success(request, "Метка успешно изменена")
+            messages.success(request, _("The label was created successfully"))
             return redirect('labels_list')
         return render(request, 'labels/labels_update.html', {'form': form})
 

@@ -3,6 +3,7 @@ from django.db.models import ProtectedError
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
+from django.utils.translation import gettext as _
 from django.views.generic import CreateView, UpdateView
 
 from .forms import CustomUserChangeForm, CustomUserCreationForm
@@ -17,7 +18,8 @@ class UserCreateView(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        messages.success(self.request, "Пользователь успешно зарегистрирован")
+        messages.success(self.request, _(
+            "User has been successfully registered"))
         return response
 
 
@@ -32,8 +34,11 @@ class UserUpdateView(UpdateView):
         if user != self.request.user:
             messages.error(
                 self.request,
-                "У вас нет прав для изменения другого пользователя.")
-            raise Http404("Вы не можете редактировать чужие данные.")
+                _("You do not have the rights to change another user.")
+            )
+            raise Http404(
+                _("You cannot edit other people's data.")
+            )
         return user
 
     def get(self, request, *args, **kwargs):
@@ -45,7 +50,8 @@ class UserUpdateView(UpdateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        messages.success(self.request, "Пользователь успешно изменен")
+        messages.success(self.request, _("User has been successfully changed")
+                         )
         return response
 
 
@@ -54,17 +60,20 @@ def user_delete(request, pk):
 
     if user != request.user:
         messages.error(
-            request, "У вас нет прав для изменения другого пользователя.")
+            request, _("You do not have the rights to change another user.")
+        )
         return redirect('user_list')
 
     if request.method == 'POST':
         try:
             user.delete()
-            messages.success(request, "Пользователь успешно удален.")
+            messages.success(request, _("User has been successfully deleted.")
+                             )
         except ProtectedError:
             messages.error(
                 request,
-                "Невозможно удалить пользователя, потому что он используется.")
+                _("It is not possible to delete a user because it is in use.")
+            )
         return redirect('user_list')
 
     return render(request, 'users/user_delete.html', {'user': user})

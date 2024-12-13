@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-12 21:56+0300\n"
+"POT-Creation-Date: 2024-12-13 21:56+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,21 +20,51 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: task_manager/labels/views.py:67
+#: task_manager/labels/views.py:15 task_manager/statuses/views.py:15
+#: task_manager/tasks/views.py:18 task_manager/tasks/views.py:41
+#: task_manager/tasks/views.py:95
+msgid "You are not logged in! Please log in."
+msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
+
+#: task_manager/labels/views.py:32
+msgid "Label with this Name already exists."
+msgstr "Label с таким Имя уже существует."
+
+#: task_manager/labels/views.py:36 task_manager/labels/views.py:52
+msgid "The label was created successfully"
+msgstr "Метка успешно создана"
+
+#: task_manager/labels/views.py:68
 msgid "The label was successfully deleted"
 msgstr "Метка успешно удалена"
 
-#: task_manager/labels/views.py:71
+#: task_manager/labels/views.py:72
 msgid "Cannot delete this label because it is being used"
 msgstr "Невозможно удалить метку, потому что она используется"
 
-#: task_manager/statuses/views.py:67
+#: task_manager/statuses/views.py:31
+msgid "Status has been successfully created"
+msgstr "Статус успешно создан"
+
+#: task_manager/statuses/views.py:48
+msgid "Status has been successfully changed"
+msgstr "Статус успешно изменен"
+
+#: task_manager/statuses/views.py:69
 msgid "The status has been successfully deleted."
 msgstr "Статус успешно удален."
 
-#: task_manager/statuses/views.py:72
+#: task_manager/statuses/views.py:74
 msgid "Cannot delete status; it is in use"
 msgstr "Невозможно удалить статус, потому что он используется"
+
+#: task_manager/tasks/filters.py:11
+msgid "Label"
+msgstr "Метка"
+
+#: task_manager/tasks/filters.py:14
+msgid "Only your own tasks"
+msgstr "Только свои задачи"
 
 #: task_manager/tasks/models.py:10
 msgid "Name"
@@ -56,6 +86,26 @@ msgstr "Исполнитель"
 msgid "Labels"
 msgstr "Метки"
 
+#: task_manager/tasks/views.py:53
+msgid "Only the author of the task can delete it."
+msgstr "Задачу может удалить только ее автор"
+
+#: task_manager/tasks/views.py:59
+msgid "The task was successfully deleted"
+msgstr "Задача успешно удалена"
+
+#: task_manager/tasks/views.py:87
+msgid "The task has been successfully created"
+msgstr "Задача успешно создана"
+
+#: task_manager/tasks/views.py:106
+msgid "The task has been successfully changed"
+msgstr "Задача успешно изменена"
+
+#: task_manager/tasks/views.py:109
+msgid "Error updating the task"
+msgstr "Ошибка при обновлении задачи"
+
 #: task_manager/users/models.py:7
 msgid "First name"
 msgstr "Имя"
@@ -63,3 +113,27 @@ msgstr "Имя"
 #: task_manager/users/models.py:8
 msgid "Last name"
 msgstr "Фамилия"
+
+#: task_manager/users/views.py:22
+msgid "User has been successfully registered"
+msgstr "Пользователь успешно зарегистрирован"
+
+#: task_manager/users/views.py:37 task_manager/users/views.py:63
+msgid "You do not have the rights to change another user."
+msgstr "У вас нет прав для изменения другого пользователя."
+
+#: task_manager/users/views.py:40
+msgid "You cannot edit other people's data."
+msgstr "Вы не можете редактировать чужие данные."
+
+#: task_manager/users/views.py:53
+msgid "User has been successfully changed"
+msgstr "Пользователь успешно изменен"
+
+#: task_manager/users/views.py:70
+msgid "User has been successfully deleted."
+msgstr "Пользователь успешно удален."
+
+#: task_manager/users/views.py:75
+msgid "It is not possible to delete a user because it is in use."
+msgstr "Невозможно удалить пользователя, потому что он используется."

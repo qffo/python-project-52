@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
+from django.utils.translation import gettext as _
 from django.views import View
 
 from task_manager.labels.models import Label
@@ -14,7 +15,7 @@ from task_manager.users.models import User
 def tasks_list(request):
     if not request.user.is_authenticated:
         messages.warning(
-            request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+            request, _("You are not logged in! Please log in."))
         return redirect('login')
 
     filter = TaskFilter(
@@ -37,7 +38,7 @@ def tasks_list(request):
 def task_info(request, pk):
     if not request.user.is_authenticated:
         messages.warning(
-            request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+            request, _("You are not logged in! Please log in."))
         return redirect('login')
     task = Task.objects.get(pk=pk)
     return render(request, 'tasks/task_info.html', {'task': task})
@@ -47,12 +48,15 @@ def task_delete(request, pk):
     task = Task.objects.get(pk=pk)
 
     if task.author != request.user:
-        messages.error(request, "Задачу может удалить только ее автор")
+        messages.error(
+            request,
+            _("Only the author of the task can delete it.")
+        )
         return redirect('tasks_list')
 
     if request.method == 'POST':
         task.delete()
-        messages.success(request, "Задача успешно удалена")
+        messages.success(request, _("The task was successfully deleted"))
         return redirect('tasks_list')
 
     return render(request, 'tasks/task_delete.html', {'task': task})
@@ -79,7 +83,8 @@ class TaskCreateView(LoginRequiredMixin, View):
             task.save()
             labels = form.cleaned_data.get('labels')
             task.labels.set(labels)
-            messages.success(request, "Задача успешно создана")
+            messages.success(request, _(
+                "The task has been successfully created"))
             return redirect('tasks_list')
         return render(request, 'tasks/task_create.html', {'form': form})
 
@@ -87,7 +92,7 @@ class TaskCreateView(LoginRequiredMixin, View):
 def task_update(request, pk):
     if not request.user.is_authenticated:
         messages.warning(
-            request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+            request, _("You are not logged in! Please log in."))
         return redirect('login')
     task = Task.objects.get(pk=pk)
 
@@ -97,10 +102,11 @@ def task_update(request, pk):
             form.save()
             labels = form.cleaned_data.get('labels')
             task.labels.set(labels)
-            messages.success(request, "Задача успешно изменена")
+            messages.success(request, _(
+                "The task has been successfully changed"))
             return redirect('tasks_list')
         else:
-            messages.error(request, "Ошибка при обновлении задачи")
+            messages.error(request, _("Error updating the task"))
     else:
         form = TaskCreationForm(instance=task)
 

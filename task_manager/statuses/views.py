@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import ProtectedError
 from django.shortcuts import redirect, render
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _
 from django.views import View
 
 from task_manager.statuses.forms import StatusForm
@@ -12,7 +12,7 @@ from task_manager.statuses.models import Status
 def index(request):
     if not request.user.is_authenticated:
         messages.warning(
-            request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+            request, _("You are not logged in! Please log in."))
         return redirect('login')
     statuses = Status.objects.all()
     return render(request, 'statuses/list.html', {'statuses': statuses})
@@ -27,7 +27,8 @@ class StatusCreateView(LoginRequiredMixin, View):
         form = StatusForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Статус успешно создан")
+            messages.success(
+                request, _("Status has been successfully created"))
             return redirect('status_list')
         return render(request, 'statuses/create.html', {'form': form})
 
@@ -43,7 +44,8 @@ class StatusUpdateView(LoginRequiredMixin, View):
         form = StatusForm(request.POST, instance=status)
         if form.is_valid():
             form.save()
-            messages.success(request, "Статус успешно изменен")
+            messages.success(
+                request, _("Status has been successfully changed"))
             return redirect('status_list')
         return render(request, 'statuses/status_update.html', {'form': form})
 
