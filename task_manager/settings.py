@@ -168,9 +168,11 @@ LOGIN_URL = '/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+ENVIRONMENT = os.getenv('ENVIRONMENT', 'production')
+
 ROLLBAR = {
     'access_token': os.getenv('ROLLBAR_ACCESS_TOKEN'),
-    'environment': 'development' if DEBUG else 'production',
+    'environment': ENVIRONMENT,
     'code_version': '1.0',
     'root': BASE_DIR,
 }
