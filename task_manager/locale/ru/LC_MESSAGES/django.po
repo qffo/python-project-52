@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-13 21:56+0300\n"
+"POT-Creation-Date: 2024-12-13 22:06+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,9 +30,13 @@ msgstr "Вы не авторизованы! Пожалуйста, выполни
 msgid "Label with this Name already exists."
 msgstr "Label с таким Имя уже существует."
 
-#: task_manager/labels/views.py:36 task_manager/labels/views.py:52
+#: task_manager/labels/views.py:36
 msgid "The label was created successfully"
 msgstr "Метка успешно создана"
+
+#: task_manager/labels/views.py:52
+msgid "Label has been successfully changed"
+msgstr "Метка успешно изменена"
 
 #: task_manager/labels/views.py:68
 msgid "The label was successfully deleted"
