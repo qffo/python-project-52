@@ -27,7 +27,13 @@ class TaskCRUDTestCase(TestCase):
             'status': self.status.id,
             'executor': self.executor.id,
         }
+
+        before_count = Task.objects.count()
+
         response = self.client.post(url, data)
+
+        after_count = Task.objects.count()
+        self.assertEqual(after_count, before_count + 1)
 
         self.assertRedirects(response, reverse('tasks_list'))
 
@@ -91,9 +97,16 @@ class TaskCRUDTestCase(TestCase):
             status=self.status,
             executor=self.executor
         )
+
+        before_count = Task.objects.count()
+
         url = reverse('task_delete', args=[task.pk])
 
         response = self.client.post(url)
+
+        after_count = Task.objects.count()
+        self.assertEqual(after_count, before_count - 1)
+
         self.assertRedirects(response, reverse('tasks_list'))
 
         with self.assertRaises(Task.DoesNotExist):

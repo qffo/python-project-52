@@ -31,9 +31,14 @@ class StatusTests(TestCase):
     def test_status_create(self):
         self.client.login(username='Viktor', password='frgt66hy')
 
+        before_count = Status.objects.count()
+
         url = reverse('status_create')
         data = {'name': 'New_Status'}
         response = self.client.post(url, data)
+
+        after_count = Status.objects.count()
+        self.assertEqual(after_count, before_count + 1)
 
         self.assertRedirects(response, reverse('status_list'))
         self.assertTrue(Status.objects.filter(name='New_Status').exists())
@@ -65,8 +70,13 @@ class StatusTests(TestCase):
     def test_status_delete(self):
         self.client.login(username='Viktor', password='frgt66hy')
 
+        before_count = Status.objects.count()
+
         url = reverse('status_delete', kwargs={'pk': self.status.pk})
         response = self.client.post(url)
+
+        after_count = Status.objects.count()
+        self.assertEqual(after_count, before_count - 1)
 
         self.assertRedirects(response, reverse('status_list'))
         self.assertFalse(Status.objects.filter(pk=self.status.pk).exists())

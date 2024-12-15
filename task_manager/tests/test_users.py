@@ -15,6 +15,9 @@ class UserRegistrationTestCase(TestCase):
         )
 
     def test_user_create(self):
+
+        before_count = User.objects.count()
+
         data = {
             'first_name': 'Test',
             'last_name': 'User',
@@ -23,6 +26,9 @@ class UserRegistrationTestCase(TestCase):
             'password2': 'tipitipi',
         }
         response = self.client.post(self.url, data)
+
+        after_count = User.objects.count()
+        self.assertEqual(after_count, before_count + 1)
 
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('login'))
@@ -49,9 +55,16 @@ class UserRegistrationTestCase(TestCase):
         self.assertEqual(self.user.username, 'updateViktor')
 
     def test_user_delet(self):
+
+        before_count = User.objects.count()
+
         self.client.login(username='Viktor', password='gthn56FeWQ')
         response = self.client.post(
             reverse('user_delete', kwargs={'pk': self.user.pk}))
+
+        after_count = User.objects.count()
+        self.assertEqual(after_count, before_count - 1)
+
         self.assertEqual(response.status_code, 302)
         self.assertFalse(User.objects.filter(
             username='Viktor').exists())

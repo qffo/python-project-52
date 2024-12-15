@@ -31,9 +31,14 @@ class LabelTests(TestCase):
     def test_label_create(self):
         self.client.login(username='Viktor', password='frgt66hy')
 
+        before_count = Label.objects.count()
+
         url = reverse('labels_create')
         data = {'name': 'New_Label'}
         response = self.client.post(url, data)
+
+        after_count = Label.objects.count()
+        self.assertEqual(after_count, before_count + 1)
 
         self.assertRedirects(response, reverse('labels_list'))
         self.assertTrue(Label.objects.filter(name='New_Label').exists())
@@ -65,8 +70,13 @@ class LabelTests(TestCase):
     def test_label_delete(self):
         self.client.login(username='Viktor', password='frgt66hy')
 
+        before_count = Label.objects.count()
+
         url = reverse('labels_delete', kwargs={'pk': self.label.pk})
         response = self.client.post(url)
+
+        after_count = Label.objects.count()
+        self.assertEqual(after_count, before_count - 1)
 
         self.assertRedirects(response, reverse('labels_list'))
         self.assertFalse(Label.objects.filter(pk=self.label.pk).exists())
