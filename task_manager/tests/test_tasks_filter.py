@@ -55,8 +55,8 @@ class TaskFilterTests(TestCase):
 
     def test_filter_by_status(self):
         self.client.login(username='Viktor1', password='Gtgt67HNnnm')
-        response = self.client.get(
-            reverse('tasks_list') + '?status=' + str(self.status1.id))
+        url = f"{reverse('tasks_list')}?status={self.status1.id}"
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Задача 1')
         self.assertContains(response, 'Задача 4')
@@ -65,8 +65,8 @@ class TaskFilterTests(TestCase):
 
     def test_filter_by_executor(self):
         self.client.login(username='Viktor1', password='Gtgt67HNnnm')
-        response = self.client.get(
-            reverse('tasks_list') + '?executor=' + str(self.user2.id))
+        url = f"{reverse('tasks_list')}?executor={self.user2.id}"
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Задача 1')
         self.assertContains(response, 'Задача 2')
@@ -75,8 +75,8 @@ class TaskFilterTests(TestCase):
 
     def test_filter_by_label(self):
         self.client.login(username='Viktor1', password='Gtgt67HNnnm')
-        response = self.client.get(
-            reverse('tasks_list') + '?labels=' + str(self.label1.id))
+        url = f"{reverse('tasks_list')}?labels={self.label1.id}"
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Задача 1')
         self.assertNotContains(response, 'Задача 2')
@@ -85,9 +85,8 @@ class TaskFilterTests(TestCase):
 
     def test_filter_by_author(self):
         self.client.login(username='Viktor1', password='Gtgt67HNnnm')
-        # Используем фильтр only_own_tasks
-        response = self.client.get(
-            reverse('tasks_list') + '?only_own_tasks=True')
+        url = f"{reverse('tasks_list')}?only_own_tasks=True"
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Задача 1')
         self.assertContains(response, 'Задача 2')
@@ -96,7 +95,8 @@ class TaskFilterTests(TestCase):
 
     def test_no_filter(self):
         self.client.login(username='Viktor1', password='Gtgt67HNnnm')
-        response = self.client.get(reverse('tasks_list'))
+        url = reverse('tasks_list')
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Задача 1')
         self.assertContains(response, 'Задача 2')

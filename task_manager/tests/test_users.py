@@ -5,7 +5,6 @@ from task_manager.users.views import User
 
 
 class UserRegistrationTestCase(TestCase):
-    fixtures = ['task_manager/fixtures/users.json']
 
     def setUp(self):
         self.url = reverse('user_create')

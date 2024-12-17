@@ -8,7 +8,6 @@ from task_manager.users.views import User
 
 
 class TaskCRUDTestCase(TestCase):
-    fixtures = ['task_manager/fixtures/users.json']
 
     def setUp(self):
         self.user = User.objects.create_user(
@@ -39,8 +38,8 @@ class TaskCRUDTestCase(TestCase):
 
         task = Task.objects.first()
 
-        self.assertEqual(task.name, 'Test Task')
-        self.assertEqual(task.description, 'Task Description')
+        self.assertEqual(task.name, data['name'])
+        self.assertEqual(task.description, data['description'])
         self.assertEqual(task.status, self.status)
         self.assertEqual(task.executor, self.executor)
 
@@ -84,8 +83,8 @@ class TaskCRUDTestCase(TestCase):
         self.assertRedirects(response, reverse('tasks_list'))
 
         task.refresh_from_db()
-        self.assertEqual(task.name, 'Updated Task')
-        self.assertEqual(task.description, 'Updated Description')
+        self.assertEqual(task.name, data['name'])
+        self.assertEqual(task.description, data['description'])
 
         self.assertIn(self.label, task.labels.all())
 
