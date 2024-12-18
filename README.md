@@ -23,11 +23,11 @@ This project was created using these tools:
 | Tools                                                           | Description                                       |
 |-----------------------------------------------------------------|---------------------------------------------------|
 | [poetry](https://python-poetry.org/)                            | "Python Dependency Management"                    |
-| [django](https://djangoproject.com/)                            | "High-level Python web framework"           |
+| [django](https://djangoproject.com/)                            | "High-level Python web framework"                 |
 | [gunicorn](https://gunicorn.org/)                               | "Python WSGI HTTP Server for UNIX"                |
-| [django-bootstrap5](https://django-bootstrap5.readthedocs.io/)  | "Bootstrap 5 for Django."         |
+| [django-bootstrap5](https://django-bootstrap5.readthedocs.io/)  | "Bootstrap 5 for Django."                         |
 | [rollbar](https://rollbar.com/)                                 | "Platform for real-time error tracking and troubleshooting"   |
-| [flake8](https://flake8.pycqa.org/)                             | "Linter"                                          |
+| [ruff](https://pypi.org/project/ruff/)                          | "Linter"                                          |
 ---
 
 #### Cloning a repository
@@ -37,9 +37,7 @@ cd python-project-52
 ```  
 #### Secret keys
 Create a file for environment variables in the python-project-52 .env directory with the following information:
-SECRET_KEY = ''
-DATABASE_URL = ''
-ROLLBAR_ACCESS_TOKEN = ''
+- .env_example
 #### Installing dependencies
 ```make install```  
 #### Development and local use
