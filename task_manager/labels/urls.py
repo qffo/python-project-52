@@ -3,7 +3,9 @@ from django.urls import path
 from task_manager.labels import views
 
 urlpatterns = [
-    path('', views.labels_list, name='labels_list'),
+    path('',
+         views.LabelsListView.as_view(),
+         name='labels_list'),
     path('create/',
          views.LabelsCreateView.as_view(),
          name='labels_create'),

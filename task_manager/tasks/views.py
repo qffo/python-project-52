@@ -12,54 +12,62 @@ from task_manager.tasks.models import Task
 from task_manager.users.models import User
 
 
-def tasks_list(request):
-    if not request.user.is_authenticated:
-        messages.warning(
-            request, _("You are not logged in! Please log in."))
+class TasksListView(LoginRequiredMixin, View):
+    def handle_no_permission(self):
+        messages.warning(self.request, _(
+            "You are not logged in! Please log in."))
         return redirect('login')
 
-    filter = TaskFilter(
-        request.GET, queryset=Task.objects.all(), request=request)
-    tasks = filter.qs
+    def get(self, request):
+        filter = TaskFilter(
+            request.GET, queryset=Task.objects.all(), request=request)
+        tasks = filter.qs
 
-    statuses = Status.objects.all()
-    users = User.objects.all()
-    labels = Label.objects.all()
+        statuses = Status.objects.all()
+        users = User.objects.all()
+        labels = Label.objects.all()
 
-    return render(request, 'tasks/tasks_list.html', {
-        'tasks': tasks,
-        'statuses': statuses,
-        'users': users,
-        'labels': labels,
-        'filter': filter
-    })
+        return render(request, 'tasks/tasks_list.html', {
+            'tasks': tasks,
+            'statuses': statuses,
+            'users': users,
+            'labels': labels,
+            'filter': filter
+        })
 
 
-def task_info(request, pk):
-    if not request.user.is_authenticated:
-        messages.warning(
-            request, _("You are not logged in! Please log in."))
+class TaskInfoView(LoginRequiredMixin, View):
+    def handle_no_permission(self):
+        messages.warning(self.request, _(
+            "You are not logged in! Please log in."))
         return redirect('login')
-    task = Task.objects.get(pk=pk)
-    return render(request, 'tasks/task_info.html', {'task': task})
+
+    def get(self, request, pk):
+        task = Task.objects.get(pk=pk)
+        return render(request, 'tasks/task_info.html', {'task': task})
 
 
-def task_delete(request, pk):
-    task = Task.objects.get(pk=pk)
+class TaskDeleteView(LoginRequiredMixin, View):
+    def handle_no_permission(self):
+        messages.warning(self.request, _(
+            "You are not logged in! Please log in."))
+        return redirect('login')
 
-    if task.author != request.user:
-        messages.error(
-            request,
-            _("Only the author of the task can delete it.")
-        )
-        return redirect('tasks_list')
+    def get(self, request, pk):
+        task = Task.objects.get(pk=pk)
+        return render(request, 'tasks/task_delete.html', {'task': task})
 
-    if request.method == 'POST':
+    def post(self, request, pk):
+        task = Task.objects.get(pk=pk)
+
+        if task.author != request.user:
+            messages.error(request, _(
+                "Only the author of the task can delete it."))
+            return redirect('tasks_list')
+
         task.delete()
         messages.success(request, _("The task was successfully deleted"))
         return redirect('tasks_list')
-
-    return render(request, 'tasks/task_delete.html', {'task': task})
 
 
 class TaskCreateView(LoginRequiredMixin, View):
@@ -89,15 +97,25 @@ class TaskCreateView(LoginRequiredMixin, View):
         return render(request, 'tasks/task_create.html', {'form': form})
 
 
-def task_update(request, pk):
-    if not request.user.is_authenticated:
-        messages.warning(
-            request, _("You are not logged in! Please log in."))
-        return redirect('login')
-    task = Task.objects.get(pk=pk)
+class TaskUpdateView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        task = Task.objects.get(pk=pk)
+        form = TaskCreationForm(instance=task)
 
-    if request.method == 'POST':
+        statuses = Status.objects.all()
+        users = User.objects.all()
+
+        return render(request, 'tasks/task_update.html', {
+            'form': form,
+            'task': task,
+            'statuses': statuses,
+            'users': users
+        })
+
+    def post(self, request, pk):
+        task = Task.objects.get(pk=pk)
         form = TaskCreationForm(request.POST, instance=task)
+
         if form.is_valid():
             form.save()
             labels = form.cleaned_data.get('labels')
@@ -107,15 +125,13 @@ def task_update(request, pk):
             return redirect('tasks_list')
         else:
             messages.error(request, _("Error updating the task"))
-    else:
-        form = TaskCreationForm(instance=task)
 
-    statuses = Status.objects.all()
-    users = User.objects.all()
+        statuses = Status.objects.all()
+        users = User.objects.all()
 
-    return render(request, 'tasks/task_update.html', {
-        'form': form,
-        'task': task,
-        'statuses': statuses,
-        'users': users
-    })
+        return render(request, 'tasks/task_update.html', {
+            'form': form,
+            'task': task,
+            'statuses': statuses,
+            'users': users
+        })

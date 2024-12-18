@@ -9,13 +9,16 @@ from task_manager.statuses.forms import StatusForm
 from task_manager.statuses.models import Status
 
 
-def index(request):
-    if not request.user.is_authenticated:
+class StatusListView(LoginRequiredMixin, View):
+    def handle_no_permission(self):
         messages.warning(
-            request, _("You are not logged in! Please log in."))
+            self.request,
+            _("You are not logged in! Please log in."))
         return redirect('login')
-    statuses = Status.objects.all()
-    return render(request, 'statuses/list.html', {'statuses': statuses})
+
+    def get(self, request):
+        statuses = Status.objects.all()
+        return render(request, 'statuses/list.html', {'statuses': statuses})
 
 
 class StatusCreateView(LoginRequiredMixin, View):

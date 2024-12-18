@@ -3,9 +3,19 @@ from django.urls import path
 from task_manager.tasks import views
 
 urlpatterns = [
-    path('', views.tasks_list, name='tasks_list'),
-    path('create/', views.TaskCreateView.as_view(), name='task_create'),
-    path('<int:pk>/', views.task_info, name='task_info'),
-    path('<int:pk>/update/', views.task_update, name='task_update'),
-    path('<int:pk>/delete/', views.task_delete, name='task_delete'),
+    path('',
+         views.TasksListView.as_view(),
+         name='tasks_list'),
+    path('create/',
+         views.TaskCreateView.as_view(),
+         name='task_create'),
+    path('<int:pk>/',
+         views.TaskInfoView.as_view(),
+         name='task_info'),
+    path('<int:pk>/update/',
+         views.TaskUpdateView.as_view(),
+         name='task_update'),
+    path('<int:pk>/delete/',
+         views.TaskDeleteView.as_view(),
+         name='task_delete'),
 ]

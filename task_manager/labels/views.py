@@ -9,13 +9,16 @@ from task_manager.labels.forms import LabelCreationForm
 from task_manager.labels.models import Label
 
 
-def labels_list(request):
-    if not request.user.is_authenticated:
+class LabelsListView(LoginRequiredMixin, View):
+    def handle_no_permission(self):
         messages.warning(
-            request, _("You are not logged in! Please log in."))
+            self.request,
+            _("You are not logged in! Please log in."))
         return redirect('login')
-    labels = Label.objects.all()
-    return render(request, 'labels/labels_list.html', {'labels': labels})
+
+    def get(self, request):
+        labels = Label.objects.all()
+        return render(request, 'labels/labels_list.html', {'labels': labels})
 
 
 class LabelsCreateView(LoginRequiredMixin, View):
@@ -25,17 +28,19 @@ class LabelsCreateView(LoginRequiredMixin, View):
 
     def post(self, request):
         form = LabelCreationForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            if Label.objects.filter(name=name).exists():
-                form.add_error(
-                    'name', _('Label with this Name already exists.'))
-                return render(request,
-                              'labels/labels_create.html', {'form': form})
-            form.save()
-            messages.success(request, _("The label was created successfully"))
-            return redirect('labels_list')
-        return render(request, 'labels/labels_create.html', {'form': form})
+
+        if not form.is_valid():
+            return render(request, 'labels/labels_create.html', {'form': form})
+
+        name = form.cleaned_data['name']
+
+        if Label.objects.filter(name=name).exists():
+            form.add_error('name', _('Label with this Name already exists.'))
+            return render(request, 'labels/labels_create.html', {'form': form})
+
+        form.save()
+        messages.success(request, _("The label was created successfully"))
+        return redirect('labels_list')
 
 
 class LabelsUpdateView(LoginRequiredMixin, View):
