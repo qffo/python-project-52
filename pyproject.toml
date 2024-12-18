@@ -18,12 +18,11 @@ django-bootstrap5 = "^24.3"
 rollbar = "^1.1.0"
 whitenoise = "^6.8.2"
 django-filter = "^24.3"
-ruff = "^0.8.1"
-
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.1.1"
 coverage = "^7.6.8"
+ruff = "^0.8.1"
 
 [build-system]
 requires = ["poetry-core"]
