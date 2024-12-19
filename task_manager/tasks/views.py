@@ -60,12 +60,14 @@ class TaskDeleteView(LoginRequiredMixin, View):
             messages.error(request, _(
                 "Only the author of the task can delete it."))
             return redirect('tasks_list')
-
         return render(request, 'tasks/task_delete.html', {'task': task})
 
     def post(self, request, pk):
         task = Task.objects.get(pk=pk)
-
+        if task.author != request.user:
+            messages.error(request, _(
+                "Only the author of the task can delete it."))
+            return redirect('tasks_list')
         task.delete()
         messages.success(request, _("The task was successfully deleted"))
         return redirect('tasks_list')
