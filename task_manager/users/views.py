@@ -77,7 +77,7 @@ class UserDeleteView(LoginRequiredMixin, View):
         return redirect('user_list')
 
 
-class UserListView(LoginRequiredMixin, View):
+class UserListView(View):
     def get(self, request):
         users = User.objects.all()
         return render(request, 'users/users_list.html', {'users': users})
